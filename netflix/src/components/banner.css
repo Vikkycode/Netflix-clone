@@ -1,0 +1,50 @@
+.banner{
+    /* padding: 0 2rem; */
+
+}
+
+.banner > header{
+    /* object-fit: contain; */
+}
+
+.banner__content{
+    display: flex;
+    color: #fff;
+    flex-wrap: wrap;
+    padding-top: 10rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    flex-direction:column;
+    align-items: flex-start;
+    /* align-self:flex-start; */
+    /* padding-left: 3rem; */
+}
+
+.banner__buttons > button{
+    display: inline-flex;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius:0.1rem;
+    font-weight: 800;
+    color: #fff;
+    margin: 1rem 0;
+    background: linear-gradient(rgba(0.5,0.5,0.5,0.7),rgba(0.5,0.5,0.5,0.8));
+}
+
+.banner__buttons > button:hover{
+    background:linear-gradient(rgba(25,25,25,0.5),rgba(25,25,25,0.5))
+}
+
+.banner__btn:nth-child(1){
+    margin-right: 10px;
+}
+
+.banner__description{
+    max-width: 350px;
+    text-align:justify;
+}
+
+.banner__fadeBottom{
+    background: linear-gradient(180deg,transparent,rgba(37,37,37,0.61),#111);
+    height: 11rem;
+}

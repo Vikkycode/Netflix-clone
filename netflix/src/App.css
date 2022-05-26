@@ -1,0 +1,13 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+.App{
+  /* margin: 0 2rem; */
+  scrollbar-width: none;
+}
+
+.App::-webkit-scrollbar{
+  scrollbar-width: thin;
+}
