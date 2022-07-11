@@ -1,16 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import axios from '../axios'
-import  '../components/row.css'
-// import YouTube from 'react-youtube'
-// import movieTrailer from 'movie-trailer'
-
-
+import  './row.css'
+import YouTube from 'react-youtube'
+import movieTrailer from 'movie-trailer'
 
 let base_url= "https://image.tmdb.org/t/p/original/"
-
-const Row=({title,fetchUrl,isLargeRow,isPaddingBottom})=>{
+const Row=({title,fetchUrl,isLargeRow,isPaddingBottom,videoid})=>{
     const [movies,setMovies] = useState([]);
-    // const [trailerUrl,setTrailerUrl] = useState("")
+    const [trailerUrl,setTrailerUrl] = useState("")
 
     // to eliminate side-effect or run after render
     useEffect(()=>{
@@ -26,30 +23,46 @@ const Row=({title,fetchUrl,isLargeRow,isPaddingBottom})=>{
         fetchData()
     },[fetchUrl])
 
-    // const opts ={
-    //   height:"390",
-    //   width:"100%",
-    //   playerVars:{
-    //     autoplay:1,
-    //   },
-    // }
+    const opts ={
+      height:"390",
+      width:"100%",
+      playerVars:{
+        autoplay:1,
+      },
+    }
 
-    // const handleClick = (movie)=>{
-    //   if(trailerUrl){
-    //     setTrailerUrl("")
-    //   }else{
-    //     movieTrailer(null,{tmdbId:movie.id})
-    //     .then(url =>{
-    //       console.log("url is " + url)
-    //       const urlParams = new URLSearchParams(new URL(url).search)
-    //       console.log("urlParamsn"+urlParams)
-    //       setTrailerUrl(urlParams.get("v"))
-    //     })
-    //     .catch(error =>{
-    //       console.log(error)
-    //     })
-    //   }
-    // }
+
+    const videoOnReady =  (e)=>{
+      //  console.log(e.target.playVideoAt())
+      setTrailerUrl(e.target.playVideoAt())
+    }
+
+    const videoOnPlayer= (e)=>{
+      const player =  e.target;
+      // console.log(player.getCurrentTime(e))
+      setTrailerUrl(player.getCurrentTime(e))
+    }
+    const videoStateChange = (event)=>{
+      // console.log(event.target.getCurrentTime(event))
+      setTrailerUrl(event.target.getCurrentTime(event))
+    }
+
+    const handleClick = (movie)=>{
+      if(trailerUrl){
+        setTrailerUrl("")
+      }else{
+        movieTrailer(null,{tmdbId:movie.id})
+        .then(url =>{
+          // console.log("url is " + url)
+          const urlParams = new URLSearchParams(new URL(url).search)
+          // console.log("urlParamsn"+urlParams)
+          setTrailerUrl(urlParams.get("v"))
+        })
+        .catch(error =>{
+          console.log(error)
+        })
+      }
+    }
   return (
     <div className='row'>
          <h2>{title}</h2>
@@ -57,16 +70,23 @@ const Row=({title,fetchUrl,isLargeRow,isPaddingBottom})=>{
         {movies.map(movie => (
             <img 
             key={movie.id} 
-        //  onClick={()=> handleClick(movie)}
+            videoId={trailerUrl}
+         onClick={()=> handleClick(movie)}
             src={`${base_url}${isLargeRow?movie.poster_path:movie.backdrop_path}`} 
             alt={movie.name} 
             className={`row__poster ${isLargeRow && 'row__posterlarge'}
             ${isPaddingBottom && "row__poster--lastPaddingBottom"}`} />
             ))}
         </div>
-        {/* { trailerUrl && <YouTube videoId={trailerUrl} opts={opts} />} */}
+        { trailerUrl && 
+        <YouTube 
+        videoId={videoid}
+        opts={opts} 
+        onReady={(e)=> videoOnReady(e)}
+        onPlay={(e)=> videoOnPlayer(e)}
+        onStateChange={(event) => videoStateChange(event)}
+        />}
     </div>
   )
 }
-
 export default Row;

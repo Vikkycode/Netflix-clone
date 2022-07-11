@@ -1,11 +1,15 @@
 import React,{useState,useEffect} from 'react'
+import {useNavigate} from 'react-router-dom'
 import NetflixLogo from '../asses/Netflix-Logo.svg'
 import Avatar from '../asses/avatar.png'
-import '../components/navbar.css'
-
+import SearchBar from './screen/SearchBar'
+import './navbar.css'
+// import {getAuth} from 'firebase/auth'
 const Navbar =()=>{
     const [show,handShow]=useState(false)
+    const navigate = useNavigate()
 
+    // const auth = getAuth()
     const handleScrollY= ()=>{
         if(window.scrollY > 100){
             handShow(true)
@@ -21,11 +25,13 @@ const Navbar =()=>{
     return (
         <nav className={`navbar ${show && "navbar__black"}`}>
             <img
+            onClick={()=> navigate('/')}
             className='netflix__logo'
             src={NetflixLogo}
             alt="Netflix logo" 
-            />    
+            />
             <img
+            onClick={()=> navigate('/profile')}
             className='avatar__logo'
             src={Avatar}
             alt="avatar" 

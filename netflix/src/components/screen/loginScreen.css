@@ -1,0 +1,123 @@
+.loginScreen{
+    position: relative;
+    background: url('../screen/bgScreen.jpg');
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:cover;
+    z-index: 1;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.loginScreen__gradient{
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    background-image: linear-gradient(
+        to top,
+        rgba(0,0,0,0.8) 0%,
+        rgba(0,0,0,0) 60%,
+        rgba(0,0,0,0.8)100%
+        );
+    }
+    
+.loginScreen img{
+        position: fixed;
+        object-fit: contain;
+        height: 60px;
+    }
+    
+.loginScreen__logo{
+        padding-left: 1.5rem;
+    }
+    
+    /* .getStarted__btn{
+        z-index:1;
+        top: 1.2rem;
+        padding: 0.5rem 1rem;
+        margin-right: 2rem;
+        background-color: #e50519;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        right: 0;
+    } */
+    
+.loginScreen__button{
+        position: fixed;
+        z-index:1;
+        top: 1.2rem;
+        padding: 0.5rem 1rem;
+        margin-right: 2rem;
+        background-color: #e50519;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        right: 0;
+}
+    
+.loginScreen__body{
+        z-index: 1;
+        position: absolute;
+        top: 30%;
+        color: #fff;
+        text-align: center;
+        padding: 0 1rem;
+        left: 0;
+        right: 0;
+}
+/* 
+.loginScreen__body h1{
+    padding-bottom: 1rem;
+} */
+
+.loginScreen__body h3{
+    padding: 1rem 0;
+}
+
+.loginScreen__body p{
+    padding-bottom: 0.5rem;
+}
+
+.loginScreen__body > form > input{
+    padding: 0.5rem 0.5rem;
+    outline-width: 0;
+    width:30% ;
+}
+
+.loginScreen__body > form > button{
+    z-index:1;
+    padding: 0.6rem 1rem;
+    margin-right: 2rem;
+    background-color: #e50519;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+
+}
+
+.inactive{
+    display: none;
+}
+
+
+@media screen and (max-width:450px){
+    .loginScreen{
+        display: grid;
+        flex-direction: column;
+        /* height: ; */
+    }
+    
+    .loginScreen__logo{
+        display: none;
+    }
+    .loginScreen__button{
+        display: none;
+    }
+    
+}
+
