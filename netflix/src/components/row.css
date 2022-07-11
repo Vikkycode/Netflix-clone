@@ -12,7 +12,6 @@
 .row__posters{
     padding: 0 2rem;
     display: flex;
-    
     overflow-y: hidden;
     overflow-x: scroll;
     /* margin-left: 1rem; */

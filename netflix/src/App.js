@@ -1,34 +1,50 @@
-
+import React from 'react';
 import './App.css';
-import Navbar from './components/Navbar';
-import Banner from './components/Banner';
-import Row from './components/Row'
-import requests from './requests'
-function App() {
+import { BrowserRouter,Routes,Route} from 'react-router-dom'
+import ProfileScreen from './components/screen/profileScreen';
+import HomeScreen from './components/screen/HomeScreen';
+import LoginScreen from './components/screen/LoginScreen'
+
+import { useEffect } from 'react';
+import {getAuth,onAuthStateChanged} from 'firebase/auth'
+import {useDispatch, useSelector} from 'react-redux'
+import {login,logout, selectUser} from './features/user/userSlice';
+const App=()=>{
+  // const [trailerUrl,setTrailerUrl] = useState("")
+  const user =useSelector(selectUser)
+  const dispatch = useDispatch()
+  const auth = getAuth()
+  useEffect(()=>{
+    const unsubscribe = onAuthStateChanged(auth,(userAuth)=>{
+      if(userAuth){
+        //login 
+        dispatch(
+          login({
+            uid:userAuth.uid,
+            email:userAuth.email,
+          })
+        )
+      } else{
+        // logout 
+        dispatch(logout())
+      }
+    })
+    return unsubscribe;
+  },[dispatch])
   return (
-    <div className="App">
-      <Navbar />
-      <Banner />
-      <Row title="Netflix Original"
-      fetchUrl={requests.fetchNetflixOriginals} 
-      isLargeRow/>
-      <Row title="Trending Now"
-      fetchUrl={requests.fetchTrending} />
-      <Row title="Action Movies"
-      fetchUrl={requests.fetchActionMovies} />
-      <Row title="Comedy Movies"
-      fetchUrl={requests.fetchComedyMovies} />
-      <Row title="Horror Movies"
-      fetchUrl={requests.fetchHorrorMovies} />
-      <Row title="Roman Movies"
-      fetchUrl={requests.fetchRomanMovies} />
-      <Row title="Top Rate Movies"
-      fetchUrl={requests.fetchTopRated} />
-      <Row title="Documentaries"
-      fetchUrl={requests.fetchDocumentaries} 
-      isPaddingBottom={true}
-      />
-    </div>
+    <BrowserRouter>
+    {!user ? (
+      <LoginScreen />
+    ):(
+      <Routes>
+        <Route path='/profile' element={<ProfileScreen />} />
+        <Route path='/' element={<HomeScreen />} >        
+        </Route>
+      </Routes>
+    )
+  }
+    </BrowserRouter>
+  
   );
 }
 

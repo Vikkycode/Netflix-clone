@@ -1,8 +1,16 @@
 import React,{useState,useEffect} from 'react'
+import {Swiper,SwiperSlide} from 'swiper/react'
+import SwiperCore,{Autoplay} from 'swiper';
+import {useNavigate} from 'react-router-dom';
 import axios from '../axios';
 import requests from '../requests';
-import '../components/banner.css'
-    function Banner() {
+import './banner.css'
+
+const Banner= ()=> {
+        let base_url= "https://image.tmdb.org/t/p/original/"
+    // SwiperCore.use([Autoplay])
+    const navigate = useNavigate()
+
     const [movie,setMovie]=useState([])
 
     useEffect(()=>{
@@ -22,19 +30,25 @@ import '../components/banner.css'
         return str?.length > n ? str.substr(0,n-1) + "...": str; 
 }
   return (
-    <header
+    
+    <header 
     className='banner'
     style={{
     backgroundSize:'cover',
     height:'500px',
+    maxWidth:'100%',
     backgroundPosition:'center center',
     backgroundImage:`url("https://image.tmdb.org/t/p/original/${movie?.backdrop_path}")`}}
     >
+        
+    
     <div className='banner__content'>
         <h1 className='banner__title'>{movie?.name || movie?.title || movie?.original_name}</h1>
         <div className='banner__buttons'>
         <button className='banner__btn'>Play</button>
-        <button className='banner__btn'>My List</button>
+        <button className='banner__btn'
+        // onClick={navigate('/movie' + movie.id)}
+        >Watch trailer</button>
         </div>
         <p className='banner__description'>
         {truncate(movie?.overview,150)}
