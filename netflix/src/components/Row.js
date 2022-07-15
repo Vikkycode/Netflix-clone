@@ -14,6 +14,7 @@ const Row=({title,fetchUrl,isLargeRow,isPaddingBottom,videoid})=>{
       const fetchData= async ()=>{
             try {
                 let request = await axios.get(fetchUrl);
+                console.log(request.data.results)
              setMovies(request.data.results)
              return request; 
             } catch (error) {
@@ -68,14 +69,17 @@ const Row=({title,fetchUrl,isLargeRow,isPaddingBottom,videoid})=>{
          <h2>{title}</h2>
         <div className='row__posters'>
         {movies.map(movie => (
-            <img 
-            key={movie.id} 
+            <>
+            <img
+            key={movie.id}
             videoId={trailerUrl}
-         onClick={()=> handleClick(movie)}
-            src={`${base_url}${isLargeRow?movie.poster_path:movie.backdrop_path}`} 
-            alt={movie.name} 
+            onClick={() => handleClick(movie)}
+            src={`${base_url}${isLargeRow ? movie.poster_path : movie.backdrop_path}`}
+            alt={movie.name}
             className={`row__poster ${isLargeRow && 'row__posterlarge'}
             ${isPaddingBottom && "row__poster--lastPaddingBottom"}`} />
+            {/* <h4 className='row__poster-title'>{movie.original_title || movie.title}</h4> */}
+            </>
             ))}
         </div>
         { trailerUrl && 

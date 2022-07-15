@@ -1,11 +1,17 @@
 import React,{useState} from 'react'
 import netflixlogo from  './Netflix-Logo.svg'
+import { useNavigate } from 'react-router-dom'
 import './loginScreen.css'
 import SignUpScreen from './signUpScreen'
 
 const LoginScreen=()=>{
   const [signIn,setSignIn]=useState(false)
   // const [inactive,setInactive]=useState(false)
+  const nav = useNavigate()
+  const handleLogin = async ()=>{
+    await setSignIn(true)
+    nav("/signin")  
+  }
   return (
     
     <div className='loginScreen' >
@@ -17,7 +23,7 @@ const LoginScreen=()=>{
         {/* onClick={()=>setInactive(true)}    */}
       </div>
       <button 
-      onClick={()=> setSignIn(true)}
+      onClick={()=> handleLogin()}
       className='loginScreen__button'>Sign In</button>
       <div className='loginScreen__body'>
       {signIn ? (
@@ -32,7 +38,7 @@ const LoginScreen=()=>{
           <input type='email' placeholder='Email address' />
           <button
           // className={`getStarted__btn ${inactive && 'inactive'}`}
-          onClick={()=> setSignIn(true)}       
+          onClick={()=> handleLogin()}       
           >Get Started</button>
         </form>
       </>

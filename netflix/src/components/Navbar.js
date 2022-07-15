@@ -25,13 +25,13 @@ const Navbar =()=>{
     return (
         <nav className={`navbar ${show && "navbar__black"}`}>
             <img
-            onClick={()=> navigate('/')}
+            onClick={()=> navigate('/home')}
             className='netflix__logo'
             src={NetflixLogo}
             alt="Netflix logo" 
             />
             <img
-            onClick={()=> navigate('/profile')}
+            onClick={()=> navigate('/logout')}
             className='avatar__logo'
             src={Avatar}
             alt="avatar" 
