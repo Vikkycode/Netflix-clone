@@ -2,9 +2,10 @@ import React from 'react'
 import Navbar from '../Navbar';
 import Banner from '../Banner';
 import Row from '../Row'
+import Footer from '../screen/Footer'
 import requests from '../../requests'
 
-const HomeScreen=()=>{
+const HomeScreen=(trailerUrl)=>{
   return (
     <div>
 
@@ -12,7 +13,7 @@ const HomeScreen=()=>{
       <Banner />
       <Row title="Netflix Original"
       fetchUrl={requests.fetchNetflixOriginals}
-    //   videoid="M1kNc7xTwSs"
+      videoId={trailerUrl}
       isLargeRow/>
       <Row title="Trending Now"
       fetchUrl={requests.fetchTrending} />
@@ -30,6 +31,7 @@ const HomeScreen=()=>{
       fetchUrl={requests.fetchDocumentaries} 
       isPaddingBottom={true}
       />
+      <Footer />
     </div>
   )
 }
