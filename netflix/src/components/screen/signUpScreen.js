@@ -1,5 +1,6 @@
 import React,{useRef,useEffect} from 'react'
-import { app } from  '../../firebase'
+import {auth} from  '../../firebase'
+import { useNavigate } from 'react-router-dom'
 import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
 
 import './signUpScreen.css'
@@ -7,7 +8,7 @@ import './signUpScreen.css'
 const SignUpScreen= ()=>{
     const emailRef = useRef(null)
     const passwordRef= useRef(null)
-
+    const nav = useNavigate()
     
     // useEffect(()=>{
     //     console.log(Object.keys(emailRef).current)
@@ -15,29 +16,31 @@ const SignUpScreen= ()=>{
     //         emailRef.current?.focus()
     //     }    
     // },[emailRef])
-    const auth = getAuth();
-    const register = (e)=>{
+    
+    const register = async (e)=>{
         e.preventDefault()
         
-        createUserWithEmailAndPassword(auth,
+        await auth.createUserWithEmailAndPassword(
             emailRef.current.value,
             passwordRef.current.value
             ).then(authUser=>{
                 console.log(authUser)
+                nav("/home")
             }).catch(error =>{
                 alert(error.message)
             })
             
         }
         
-    const signIn = (e)=>{
+    const signIn = async (e)=>{
         e.preventDefault()
 
-        signInWithEmailAndPassword(auth,
+        await auth.signInWithEmailAndPassword(
             emailRef.current.value,
             passwordRef.current.value
             ).then((authUser)=>{
                 console.log(authUser)
+                nav("/home")
             }).catch((error)=>{
                 alert(error.message)
             })
